@@ -17,12 +17,18 @@ namespace Offsets {
 		constexpr uint32_t CRESIDENTIALBUILDING_UPDATELOGIC = 0x54DCA0 - BASEOFFSET;
 	}
 	namespace Values {
+		constexpr uint32_t MAPSIZE = 0x1054138;
 		constexpr uint32_t PARTIESINMAP = 0x1294828 - BASEOFFSET;
 		constexpr uint32_t APLAYERSTATS = 0x1545660 - BASEOFFSET;
 		constexpr uint32_t CURRENTPARTYID = 0x0129482c - BASEOFFSET;
 
 		// pointers actually
-		constexpr uint32_t PAIMAIN = 0x106B148;
+		constexpr uint32_t PAIMAIN = 0x106B148; // ptr to struct S4AIMain
+		
+		// what exactly these two represent, i dont know. and I dont NEED to know. (i need to know)
+		constexpr uint32_t PAFIELDIDTYPE = 0x11630C4;// ptr to array uint16_t*
+		constexpr uint32_t AMAPFIELDIDTYPE_IGUESS = 0xEF1A26; // sizeof per field = 0x14 = 20
+		
 		constexpr uint32_t APARTYINFOOFFSETFREESETTLERS = 0x11abf48 - BASEOFFSET;
 		constexpr uint32_t APARTYINFOOFFSETSETTLERSADDEDTOTAL = 0x11ac050 - BASEOFFSET;
 	}

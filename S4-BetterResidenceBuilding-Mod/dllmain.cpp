@@ -12,17 +12,17 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        if(SBetterResidenceBuildings::onAttach() != ATTACH_VALUE::SUCCESS)
-            Winutil::messageBoxA(SBetterResidenceBuildings::getLastErrorStr().c_str(), "S4BetterResidenceBuildings, onAttach");
+        if(S4BetterResidenceBuildings::onAttach() != ATTACH_VALUE::SUCCESS)
+            Winutil::messageBoxA(S4BetterResidenceBuildings::getLastErrorStr().c_str(), "S4BetterResidenceBuildings, onAttach");
         break;
     case DLL_THREAD_ATTACH:
         break;
     case DLL_THREAD_DETACH:
         break;
     case DLL_PROCESS_DETACH:
-        if (SBetterResidenceBuildings::onDetach() != DETACH_VALUE::SUCCESS)
+        if (S4BetterResidenceBuildings::onDetach() != DETACH_VALUE::SUCCESS)
         {
-            Winutil::messageBoxA(SBetterResidenceBuildings::getLastErrorStr().c_str(), "S4BetterResidenceBuildings, onDetach");
+            Winutil::messageBoxA(S4BetterResidenceBuildings::getLastErrorStr().c_str(), "S4BetterResidenceBuildings, onDetach");
         }
         break;
     }

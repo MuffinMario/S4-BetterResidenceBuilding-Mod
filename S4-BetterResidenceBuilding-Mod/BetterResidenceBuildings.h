@@ -13,7 +13,7 @@ enum class DETACH_VALUE {
 	SUCCESS = 0,
 	FAILED_UNKNOWN
 };
-struct SBetterResidenceBuildings
+struct S4BetterResidenceBuildings
 {
 	static ATTACH_VALUE onAttach();
 	static DETACH_VALUE onDetach();
@@ -29,5 +29,9 @@ private:
 
 	static bool createAPI();
 	static bool releaseAPI();
+
+	
+	static void assignConstantAddresses(HANDLE hS4);
+	static BOOL overwriteVTable(S4API pS4API, HANDLE hS4Base);
 };
 

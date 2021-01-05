@@ -173,11 +173,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="assertions.h" />
     <ClInclude Include="BetterResidenceBuildings.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="FunctionTypes.h" />
+    <ClInclude Include="S4FunctionTypes.h" />
+    <ClInclude Include="S4AIMain.h" />
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="memutil.h" />
+    <ClInclude Include="S4Building.h" />
+    <ClInclude Include="S4DataTypes.h" />
+    <ClInclude Include="S4Detours.h" />
+    <ClInclude Include="S4ResidenceBuilding.h" />
+    <ClInclude Include="S4UnknownInformationStructResidenceBuilding.h" />
+    <ClInclude Include="S4Util.h" />
     <ClInclude Include="winutil.h" />
-    <ClInclude Include="Offsets.h" />
+    <ClInclude Include="S4MemoryOffsets.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +199,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="S4Functions.cpp" />
+    <ClCompile Include="S4Util.cpp" />
+    <ClCompile Include="S4Vars.cpp" />
+    <ClCompile Include="S4DetourNewResidentialBuildingLogicTick.cpp" />
+    <ClCompile Include="S4DetourOriginalResidentialBuildingLogicTick.cpp" />
+    <ClCompile Include="S4Functions.h" />
+    <ClCompile Include="S4Vars.h" />
     <ClCompile Include="winutil.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

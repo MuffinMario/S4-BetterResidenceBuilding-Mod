@@ -13,25 +13,88 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\generic util">
+      <UniqueIdentifier>{8a04b498-fdc5-4ad6-af80-e8218b828e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\BRB mod">
+      <UniqueIdentifier>{2169cf24-a7ff-4dea-8732-c03cf06c0b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\BRB mod\S4 datatypes">
+      <UniqueIdentifier>{a1eb444b-cbea-4819-831f-13d8c3264361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\BRB mod\Detour">
+      <UniqueIdentifier>{64933f34-f9dd-4704-8c17-94025dbce432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\BRB mod\S4Memory">
+      <UniqueIdentifier>{29eb65d2-9371-4726-8367-48a68e038979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\BRB mod\util">
+      <UniqueIdentifier>{10c2fcf8-fdd4-4375-9419-d76bb36e54c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\BRB mod">
+      <UniqueIdentifier>{ca3401f6-170f-4109-9581-7b82b9e2910b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\generic util">
+      <UniqueIdentifier>{a86b3ee6-e89a-48cf-86c4-5076a871be99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\BRB mod\S4Memory">
+      <UniqueIdentifier>{bf46688d-f473-4e44-92bc-94f04aa42826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\BRB mod\Detour">
+      <UniqueIdentifier>{a8a99aff-0af8-4f39-95b6-a238800f2d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\BRB mod\util">
+      <UniqueIdentifier>{aa27d33e-51b9-4ac4-8d99-4630ccfd1622}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="BetterResidenceBuildings.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Offsets.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="FunctionTypes.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="S4ResidenceBuilding.h">
+      <Filter>Headerdateien\BRB mod\S4 datatypes</Filter>
     </ClInclude>
     <ClInclude Include="winutil.h">
+      <Filter>Headerdateien\generic util</Filter>
+    </ClInclude>
+    <ClInclude Include="memutil.h">
+      <Filter>Headerdateien\generic util</Filter>
+    </ClInclude>
+    <ClInclude Include="assertions.h">
+      <Filter>Headerdateien\BRB mod</Filter>
+    </ClInclude>
+    <ClInclude Include="BetterResidenceBuildings.h">
+      <Filter>Headerdateien\BRB mod</Filter>
+    </ClInclude>
+    <ClInclude Include="macros.h">
+      <Filter>Headerdateien\BRB mod</Filter>
+    </ClInclude>
+    <ClInclude Include="S4DataTypes.h">
+      <Filter>Headerdateien\BRB mod</Filter>
+    </ClInclude>
+    <ClInclude Include="S4AIMain.h">
+      <Filter>Headerdateien\BRB mod\S4 datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="S4Building.h">
+      <Filter>Headerdateien\BRB mod\S4 datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="S4UnknownInformationStructResidenceBuilding.h">
+      <Filter>Headerdateien\BRB mod\S4 datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="S4Detours.h">
+      <Filter>Headerdateien\BRB mod\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="S4Util.h">
+      <Filter>Headerdateien\BRB mod\util</Filter>
+    </ClInclude>
+    <ClInclude Include="S4FunctionTypes.h">
+      <Filter>Headerdateien\BRB mod</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="S4MemoryOffsets.h">
+      <Filter>Headerdateien\BRB mod\S4Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,11 +104,32 @@
     <ClCompile Include="pch.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="S4Functions.h">
+      <Filter>Headerdateien\BRB mod\S4Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="S4Vars.h">
+      <Filter>Headerdateien\BRB mod\S4Memory</Filter>
+    </ClCompile>
     <ClCompile Include="BetterResidenceBuildings.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\BRB mod</Filter>
     </ClCompile>
     <ClCompile Include="winutil.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\generic util</Filter>
+    </ClCompile>
+    <ClCompile Include="S4Vars.cpp">
+      <Filter>Quelldateien\BRB mod\S4Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="S4Functions.cpp">
+      <Filter>Quelldateien\BRB mod\S4Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="S4DetourNewResidentialBuildingLogicTick.cpp">
+      <Filter>Quelldateien\BRB mod\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="S4DetourOriginalResidentialBuildingLogicTick.cpp">
+      <Filter>Quelldateien\BRB mod\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="S4Util.cpp">
+      <Filter>Quelldateien\BRB mod\util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
