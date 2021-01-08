@@ -21,3 +21,15 @@ extern size_t pgaFieldIDTypeStructSize;
 
 extern int32_t* gaPartyInfoOffsetFreeSettlers;
 extern int32_t* gaPartyInfoOffsetSettlersAddedTotal;
+
+extern uint32_t* gaPlayerRace;
+
+extern uint32_t* gaInitialBeds;
+
+extern uint32_t* gaRaceInfoOffsetSmallResidenceSettlerCount;
+extern uint32_t* gaRaceInfoOffsetMediumResidenceSettlerCount;
+extern uint32_t* gaRaceInfoOffsetBigResidenceSettlerCount;
+
+extern uint32_t* gaPartyBuildingStatsOffsetSmallResidenceCount;
+extern uint32_t* gaPartyBuildingStatsOffsetMediumResidenceCount;
+extern uint32_t* gaPartyBuildingStatsOffsetBigResidenceCount;

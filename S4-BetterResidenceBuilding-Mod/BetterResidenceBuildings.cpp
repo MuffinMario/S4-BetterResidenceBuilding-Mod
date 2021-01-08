@@ -35,6 +35,18 @@ void S4BetterResidenceBuildings::assignConstantAddresses(HANDLE hS4) {
 
     assignExternal(pgAIMain, hS4, Offsets::Values::PAIMAIN);
 
+    assignExternal(gaPlayerRace, hS4, Offsets::Values::APLAYERRACETBL);
+
+    assignExternal(gaInitialBeds, hS4, Offsets::Values::AINITIALBEDS);
+
+    assignExternal(gaRaceInfoOffsetSmallResidenceSettlerCount, hS4, Offsets::Values::ARACEINFOOFFSETSMALLRESIDENCESETTLERCOUNT);
+    assignExternal(gaRaceInfoOffsetMediumResidenceSettlerCount, hS4, Offsets::Values::ARACEINFOOFFSETMEDIUMRESIDENCESETTLERCOUNT);
+    assignExternal(gaRaceInfoOffsetBigResidenceSettlerCount, hS4, Offsets::Values::ARACEINFOOFFSETBIGRESIDENCESETTLERCOUNT);
+
+    assignExternal(gaPartyBuildingStatsOffsetSmallResidenceCount, hS4, Offsets::Values::APARTYBUILDINGSTATSOFFSETSMALLRESIDENCECOUNT);
+    assignExternal(gaPartyBuildingStatsOffsetMediumResidenceCount, hS4, Offsets::Values::APARTYBUILDINGSTATSOFFSETMEDIUMRESIDENCECOUNT);
+    assignExternal(gaPartyBuildingStatsOffsetBigResidenceCount, hS4, Offsets::Values::APARTYBUILDINGSTATSOFFSETBIGRESIDENCECOUNT);
+
     assignExternal(gaPlayerStats, hS4, Offsets::Values::APLAYERSTATS);
     assignExternal(gaPartyInfoOffsetFreeSettlers, hS4, Offsets::Values::APARTYINFOOFFSETFREESETTLERS);
     assignExternal(gaPartyInfoOffsetSettlersAddedTotal, hS4, Offsets::Values::APARTYINFOOFFSETSETTLERSADDEDTOTAL);

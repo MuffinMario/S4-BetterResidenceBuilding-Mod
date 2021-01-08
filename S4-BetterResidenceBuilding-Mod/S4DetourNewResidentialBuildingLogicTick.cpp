@@ -6,6 +6,7 @@
 #include "S4Functions.h"
 #include "S4Vars.h"
 #include "S4Util.h"
+extern S4API pS4Api;
 // ecx                          edx                         first stack param
 void __fastcall newCResidentialBuildingUpdateLogic(S4ResidenceBuilding* pThis, void* PLACEHOLDER_IGNORE, S4Building* pBuilding) {
     if (pThis->releasedInhabitants < pThis->pUnknownStructResidenceBuilding->maxInhabitantsCounts)

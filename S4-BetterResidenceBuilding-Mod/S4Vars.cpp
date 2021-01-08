@@ -14,3 +14,15 @@ size_t pgaFieldIDTypeStructSize = 0x14 / sizeof(uint16_t);
 
 int32_t* gaPartyInfoOffsetFreeSettlers;
 int32_t* gaPartyInfoOffsetSettlersAddedTotal;
+
+uint32_t* gaPlayerRace;
+
+uint32_t* gaInitialBeds;
+
+uint32_t* gaRaceInfoOffsetSmallResidenceSettlerCount;
+uint32_t* gaRaceInfoOffsetMediumResidenceSettlerCount;
+uint32_t* gaRaceInfoOffsetBigResidenceSettlerCount;
+
+uint32_t* gaPartyBuildingStatsOffsetSmallResidenceCount;
+uint32_t* gaPartyBuildingStatsOffsetMediumResidenceCount;
+uint32_t* gaPartyBuildingStatsOffsetBigResidenceCount;

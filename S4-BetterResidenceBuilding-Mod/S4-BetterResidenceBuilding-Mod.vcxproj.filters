@@ -132,4 +132,7 @@
       <Filter>Quelldateien\BRB mod\util</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="S4-BetterResidenceBuilding-Mod.licenseheader" />
+  </ItemGroup>
 </Project>

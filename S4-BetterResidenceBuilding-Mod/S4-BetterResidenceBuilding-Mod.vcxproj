@@ -208,6 +208,9 @@
     <ClCompile Include="S4Vars.h" />
     <ClCompile Include="winutil.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="S4-BetterResidenceBuilding-Mod.licenseheader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
