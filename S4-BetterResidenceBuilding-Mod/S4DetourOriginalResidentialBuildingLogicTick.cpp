@@ -90,7 +90,7 @@ void __fastcall originalCResidentialBuildingUpdateLogic(S4ResidenceBuilding* pTh
                     if (AddSettler(x, y, partyID, pThis->pUnknownStructResidenceBuilding->settlerTypeSpawn, 0) > 0) {
                         /* Update player counts */
                         uint32_t index = partyID * (0x1128 / sizeof(uint32_t));
-                        gaPartyInfoOffsetFreeSettlers[index]++;
+                        gaPartyInfoOffsetFreeSettlerBuilderDigger[index]++;
                         gaPartyInfoOffsetSettlersAddedTotal[index]++;
                         pThis->releasedInhabitants++;
 

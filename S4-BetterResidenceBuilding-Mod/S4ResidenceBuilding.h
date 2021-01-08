@@ -7,7 +7,7 @@ struct S4ResidenceBuilding {
     virtual void dummy00();
     virtual void dummy04();
     virtual void dummy08();
-    virtual void dummy0C();
+    virtual void dummy0C(); // <- LOGICUPDATE, but whatever
     virtual void dummy10();
     virtual void dummy14();
     virtual void dummy18();

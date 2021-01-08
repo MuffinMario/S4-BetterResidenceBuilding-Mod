@@ -19,7 +19,7 @@ extern uint32_t* gaPlayerStats;
 extern uint16_t* gaFieldIDType;
 extern size_t pgaFieldIDTypeStructSize;
 
-extern int32_t* gaPartyInfoOffsetFreeSettlers;
+extern int32_t* gaPartyInfoOffsetFreeSettlerBuilderDigger;
 extern int32_t* gaPartyInfoOffsetSettlersAddedTotal;
 
 extern uint32_t* gaPlayerRace;

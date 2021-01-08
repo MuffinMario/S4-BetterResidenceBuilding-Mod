@@ -19,7 +19,8 @@ void __fastcall newCResidentialBuildingUpdateLogic(S4ResidenceBuilding* pThis, v
         //DBGPRINTLINE("bruh function");
         if (pThis->residenceBuildingState == 2) {
             pThis->tickCounterSinceLastRelease++;
-            if (pThis->tickCounterSinceLastRelease >= 60) { // roughly the amount of seconds
+            uint32_t ticksRequired = -1;
+            if (pThis->tickCounterSinceLastRelease >= 180) { // roughly the amount of seconds
                 auto queueLogicUpdateNumber = RegisterForLogicUpdate(0x1, pBuilding->buildingID);
                 pBuilding->logicQueueNumber = queueLogicUpdateNumber;
                 pThis->tickCounterSinceLastRelease = 0;
@@ -36,27 +37,44 @@ void __fastcall newCResidentialBuildingUpdateLogic(S4ResidenceBuilding* pThis, v
             DWORD y = pBuilding->buildingPosXY >> 0x10;
 
             uint16_t sectorID = S4Util::getSectorID(x, y);
+            /* This WILL create collisions with new residences. THIS HAS TO BE REVAMPED if interest spikes idk */
+            uint32_t index = partyID * (0x1128 / sizeof(uint32_t));
+            // frick finding this myself, unlike building count, this has settlers have no state difference
+            uint32_t freesettlers = pS4Api->SettlersAmount(S4_OBJECT_SETTLER_CARRIER,partyID);//gaPartyInfoOffsetFreeSettlerBuilderDigger[index];
+            uint32_t beds = S4Util::getBedCount(partyID);
 
-            if (CanSpawnSettlerAtInSector(&x, &y, sectorID)) { // not dynamic, but its always 2?
-                if (AddSettler(x, y, partyID, pThis->pUnknownStructResidenceBuilding->settlerTypeSpawn, 0) > 0) {
-                    /* Update player counts */
-                    uint32_t index = partyID * (0x1128 / sizeof(uint32_t));
-                    gaPartyInfoOffsetFreeSettlers[index]++;
-                    gaPartyInfoOffsetSettlersAddedTotal[index]++;
-                    //pThis->releasedInhabitants++;
+            //delimit max settlers spawned this way to carriers - 5
+            const uint32_t SETTLERBUFFERLIMIT = 5;
+            //DBGPRINTLINE(freesettlers);
+            //DBGPRINTLINE(beds);
+            if (beds > freesettlers + SETTLERBUFFERLIMIT) {
+                if (CanSpawnSettlerAtInSector(&x, &y, sectorID)) { 
+                    if (AddSettler(x, y, partyID, pThis->pUnknownStructResidenceBuilding->settlerTypeSpawn, 0) > 0) {
+                        /* Update player counts */
+                        gaPartyInfoOffsetFreeSettlerBuilderDigger[index]++;
+                        gaPartyInfoOffsetSettlersAddedTotal[index]++;
+                        //pThis->releasedInhabitants++;
 
-                    /* Queue agane */
-                    auto queueLogicUpdateNumber = RegisterForLogicUpdate(0x1F, pBuilding->buildingID);
-                    pBuilding->logicQueueNumber = queueLogicUpdateNumber;
-                    pThis->tickCounterSinceLastRelease = 0;
-                    pThis->residenceBuildingState = 2;
+                        /* Queue agane */
+                        auto queueLogicUpdateNumber = RegisterForLogicUpdate(0x1F, pBuilding->buildingID);
+                        pBuilding->logicQueueNumber = queueLogicUpdateNumber;
+                        pThis->tickCounterSinceLastRelease = 0;
+                        pThis->residenceBuildingState = 2;
 
-                    /* Update GUI */
-                    // function ends if user is not inside the house (UI wise of course)
-                    if ((pBuilding->guiFlags >> 9 & 1) == 0 || partyID != *pgCurrentPartyID)
-                        return;
-                    pThis->updateGUI(pBuilding, 1);
+                        /* Update GUI */
+                        // function ends if user is not inside the house (UI wise of course)
+                        if ((pBuilding->guiFlags >> 9 & 1) == 0 || partyID != *pgCurrentPartyID)
+                            return;
+                        pThis->updateGUI(pBuilding, 1);
+                    }
                 }
+            }
+            else {
+                // reset minute timer if bed limit has reached. prevent a huge flood of waiting settlers (rethink?)
+                auto queueLogicUpdateNumber = RegisterForLogicUpdate(0x1F, pBuilding->buildingID);
+                pBuilding->logicQueueNumber = queueLogicUpdateNumber;
+                pThis->tickCounterSinceLastRelease = 0;
+                pThis->residenceBuildingState = 2;
             }
         }
     }

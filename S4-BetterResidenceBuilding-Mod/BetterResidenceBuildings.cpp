@@ -23,7 +23,7 @@ void S4BetterResidenceBuildings::assignConstantAddresses(HANDLE hS4) {
     // function addresses we need
     assignExternal(RegisterForLogicUpdate, hS4, Offsets::Functions::REGISTERFORLOGICUPDATE);
     assignExternal(AddSettler, hS4, Offsets::Functions::ADDSETTLER);
-    assignExternal(CanSpawnSettlerAtInSector, hS4, Offsets::Functions::ADJUSTPOSFORSETTLER);
+    assignExternal(CanSpawnSettlerAtInSector, hS4, Offsets::Functions::CANSPAWNSETTLER);
 
     // all of this for sector id :bruh:
     assignExternal(pgMapsize, hS4, Offsets::Values::MAPSIZE);
@@ -47,8 +47,8 @@ void S4BetterResidenceBuildings::assignConstantAddresses(HANDLE hS4) {
     assignExternal(gaPartyBuildingStatsOffsetMediumResidenceCount, hS4, Offsets::Values::APARTYBUILDINGSTATSOFFSETMEDIUMRESIDENCECOUNT);
     assignExternal(gaPartyBuildingStatsOffsetBigResidenceCount, hS4, Offsets::Values::APARTYBUILDINGSTATSOFFSETBIGRESIDENCECOUNT);
 
-    assignExternal(gaPlayerStats, hS4, Offsets::Values::APLAYERSTATS);
-    assignExternal(gaPartyInfoOffsetFreeSettlers, hS4, Offsets::Values::APARTYINFOOFFSETFREESETTLERS);
+    assignExternal(gaPlayerStats, hS4, Offsets::Values::APLAYERSTATS); // incorrect naming 
+    assignExternal(gaPartyInfoOffsetFreeSettlerBuilderDigger, hS4, Offsets::Values::APARTYINFOOFFSETFREESETTLERS);
     assignExternal(gaPartyInfoOffsetSettlersAddedTotal, hS4, Offsets::Values::APARTYINFOOFFSETSETTLERSADDEDTOTAL);
 }
 BOOL S4BetterResidenceBuildings::overwriteVTable(S4API pS4API, HANDLE hS4Base) {

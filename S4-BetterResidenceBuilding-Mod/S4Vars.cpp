@@ -12,7 +12,7 @@ uint32_t* gaPlayerStats;
 uint16_t* gaFieldIDType;
 size_t pgaFieldIDTypeStructSize = 0x14 / sizeof(uint16_t);
 
-int32_t* gaPartyInfoOffsetFreeSettlers;
+int32_t* gaPartyInfoOffsetFreeSettlerBuilderDigger;
 int32_t* gaPartyInfoOffsetSettlersAddedTotal;
 
 uint32_t* gaPlayerRace;
