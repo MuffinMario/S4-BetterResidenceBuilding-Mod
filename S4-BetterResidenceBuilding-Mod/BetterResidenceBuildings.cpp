@@ -12,7 +12,8 @@
 #include "S4Detours.h"
 S4API S4BetterResidenceBuildings::m_pS4API = nullptr;
 Winutil::CHandle S4BetterResidenceBuildings::m_hS4Base = nullptr;
-std::string S4BetterResidenceBuildings::m_lastErrorStr;
+std::string S4BetterResidenceBuildings::m_lastErrorStr; 
+DWORD S4BetterResidenceBuildings::m_oldResidentialBuildingUpdateLogic = 0;
 
 
 // DEBUG
@@ -51,11 +52,10 @@ void S4BetterResidenceBuildings::assignConstantAddresses(HANDLE hS4) {
     assignExternal(gaPartyInfoOffsetFreeSettlerBuilderDigger, hS4, Offsets::Values::APARTYINFOOFFSETFREESETTLERS);
     assignExternal(gaPartyInfoOffsetSettlersAddedTotal, hS4, Offsets::Values::APARTYINFOOFFSETSETTLERSADDEDTOTAL);
 }
-BOOL S4BetterResidenceBuildings::overwriteVTable(S4API pS4API, HANDLE hS4Base) {
+BOOL S4BetterResidenceBuildings::overwriteResidentialBuildingLogicTickVTable(S4API pS4API, HANDLE hS4Base,DWORD to) {
    
 
     void* residentialBuildingVTableUpdateLogic = (void*)((uint32_t)hS4Base + Offsets::Functions::CRESIDENTIALBUILDING_VTABLE_UPDATELOGIC);
-    DWORD newFnc = (DWORD)newCResidentialBuildingUpdateLogic;
 #if ASKBEFOREOVERWRITE == 1
     {
         SSTREAM ss;
@@ -64,7 +64,7 @@ BOOL S4BetterResidenceBuildings::overwriteVTable(S4API pS4API, HANDLE hS4Base) {
             return true;
     }
 #endif
-
+    m_oldResidentialBuildingUpdateLogic= READ_AT(residentialBuildingVTableUpdateLogic);
     BOOL ret;
     {
         // this is potentially unsafe...? no other thread should WRITE this addr, but maybe read, and jesus knows what happens then
@@ -75,7 +75,7 @@ BOOL S4BetterResidenceBuildings::overwriteVTable(S4API pS4API, HANDLE hS4Base) {
         size_t pageSize = 0x231000;
         VirtualProtect(startPage, pageSize, PAGE_READWRITE, &oldProtection);
         //write new vtable address
-        ret = WRITE_AT(residentialBuildingVTableUpdateLogic, newFnc);
+        ret = WRITE_AT(residentialBuildingVTableUpdateLogic, to);
         // make page unwritable again
         VirtualProtect(startPage, pageSize, oldProtection, nullptr);
     }
@@ -99,7 +99,7 @@ ATTACH_VALUE S4BetterResidenceBuildings::onAttach()
 
     assignConstantAddresses(hS4);
 
-    if (overwriteVTable(m_pS4API, m_hS4Base) != TRUE)
+    if (overwriteResidentialBuildingLogicTickVTable(m_pS4API, m_hS4Base,(DWORD)newCResidentialBuildingUpdateLogic) != TRUE)
     {
         m_lastErrorStr = "Could not overwrite vtable values";
         return ATTACH_VALUE::FAILED_COULD_NOT_OVERRIDE_VTABLE;
@@ -112,6 +112,7 @@ DETACH_VALUE S4BetterResidenceBuildings::onDetach()
 {
     // we don't need to warn again, it's just a detach... unless there will be dynamic detach on runtime
     releaseAPI();
+    overwriteResidentialBuildingLogicTickVTable(m_pS4API, m_hS4Base, m_oldResidentialBuildingUpdateLogic);
     return DETACH_VALUE::SUCCESS;
 }
 

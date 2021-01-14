@@ -26,12 +26,14 @@ private:
 
 	static S4API m_pS4API;
 	static Winutil::CHandle m_hS4Base;
+	
+	static DWORD m_oldResidentialBuildingUpdateLogic;
 
 	static bool createAPI();
 	static bool releaseAPI();
 
 	
 	static void assignConstantAddresses(HANDLE hS4);
-	static BOOL overwriteVTable(S4API pS4API, HANDLE hS4Base);
+	static BOOL overwriteResidentialBuildingLogicTickVTable(S4API pS4API, HANDLE hS4Base,DWORD to);
 };
 
