@@ -96,6 +96,9 @@
     <ClInclude Include="S4MemoryOffsets.h">
       <Filter>Headerdateien\BRB mod\S4Memory</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -134,5 +137,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="S4-BetterResidenceBuilding-Mod.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="S4-BetterResidenceBuilding-Mod.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

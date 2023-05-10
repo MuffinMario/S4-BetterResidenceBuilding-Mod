@@ -29,13 +29,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -92,14 +92,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Cplusplus_libraries\S4ModApi_v0_5\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Administrator\Desktop\s4modapiv23\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>D:\Cplusplus_libraries\S4ModApi_v0_5\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\s4modapiv23\lib</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName).asi</OutputFile>
     </Link>
     <PostBuildEvent>
@@ -108,6 +108,10 @@
     <PostBuildEvent>
       <Message>Copy .asi file to plugin directory</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -119,7 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Cplusplus_libraries\S4ModApi_v0_5\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Administrator\Desktop\s4modapiv23\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -128,7 +132,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>D:\Cplusplus_libraries\S4ModApi_v0_5\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\s4modapiv23\lib</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName).asi</OutputFile>
     </Link>
     <PostBuildEvent>
@@ -137,6 +141,10 @@
     <PostBuildEvent>
       <Message>Copy .asi file to plugin directory</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -176,6 +184,7 @@
     <ClInclude Include="assertions.h" />
     <ClInclude Include="BetterResidenceBuildings.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="S4FunctionTypes.h" />
     <ClInclude Include="S4AIMain.h" />
     <ClInclude Include="macros.h" />
@@ -210,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="S4-BetterResidenceBuilding-Mod.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="S4-BetterResidenceBuilding-Mod.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

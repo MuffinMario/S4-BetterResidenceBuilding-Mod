@@ -1,39 +1,65 @@
+// /*
+// * S4-BetterResidenceBuilding-Mod
+// Version 0.2, May 2023
+// Copyright (C) 2023 MuffinMario https://github.com/MuffinMario https://muffinmar.io/
+// This software and associated documentation files (the "Software") are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License ("CC BY-NC-SA License").
+// You are free to:
+// - Share: Copy and redistribute the Software in any medium or format.
+// - Adapt: Remix, transform, and build upon the Software.
+//  
+// Under the following terms:
+// 1. Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made. 
+// You must give credit to the original authors of the Software and all contributors. 
+// You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+// 2. NonCommercial: You may not use the Software for commercial purposes without obtaining explicit permission from the licensor.
+// 3. ShareAlike: If you remix, transform, or build upon the Software, you must distribute your contributions under the same license as the original.
+// The above licensing terms apply to all parts of the Software and any modifications made to it.
+// This license does not grant you any patent rights, trademark rights, or any other intellectual property rights. The Software is provided "as is," without any warranty or guarantee, expressed or implied.
+// For more details about the CC BY-NC-SA License, please visit: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// */
+
 #pragma once
 #include <Windows.h>
 #include <string>
 #include "S4ModApi.h"
 #include "winutil.h"
-enum class ATTACH_VALUE {
+
+enum class ATTACH_VALUE
+{
 	SUCCESS = 0,
 	FAILED_COULD_NOT_CREATE_API_PTR,
 	FAILED_COULD_NOT_OVERRIDE_VTABLE,
 	FAILED_UNKNOWN
 };
-enum class DETACH_VALUE {
+
+enum class DETACH_VALUE
+{
 	SUCCESS = 0,
 	FAILED_UNKNOWN
 };
+
 struct S4BetterResidenceBuildings
 {
 	static ATTACH_VALUE onAttach();
 	static DETACH_VALUE onDetach();
 
-	static const std::string getLastErrorStr() {
+	static const std::string getLastErrorStr()
+	{
 		return m_lastErrorStr;
 	}
+
 private:
 	static std::string m_lastErrorStr;
 
 	static S4API m_pS4API;
 	static Winutil::CHandle m_hS4Base;
-	
+
 	static DWORD m_oldResidentialBuildingUpdateLogic;
 
 	static bool createAPI();
 	static bool releaseAPI();
 
-	
-	static void assignConstantAddresses(HANDLE hS4);
-	static BOOL overwriteResidentialBuildingLogicTickVTable(S4API pS4API, HANDLE hS4Base,DWORD to);
-};
 
+	static void setupAdresses(HANDLE hS4);
+	static BOOL overwriteResidentialBuildingLogicTickVTable(S4API pS4API, HANDLE hS4Base, DWORD to);
+};

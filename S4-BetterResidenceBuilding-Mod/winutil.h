@@ -1,4 +1,23 @@
-// Copyright (c) 2011 rubicon IT GmbH
+// /*
+// * S4-BetterResidenceBuilding-Mod
+// Version 0.2, May 2023
+// Copyright (C) 2023 MuffinMario https://github.com/MuffinMario https://muffinmar.io/
+// This software and associated documentation files (the "Software") are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License ("CC BY-NC-SA License").
+// You are free to:
+// - Share: Copy and redistribute the Software in any medium or format.
+// - Adapt: Remix, transform, and build upon the Software.
+//  
+// Under the following terms:
+// 1. Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made. 
+// You must give credit to the original authors of the Software and all contributors. 
+// You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+// 2. NonCommercial: You may not use the Software for commercial purposes without obtaining explicit permission from the licensor.
+// 3. ShareAlike: If you remix, transform, or build upon the Software, you must distribute your contributions under the same license as the original.
+// The above licensing terms apply to all parts of the Software and any modifications made to it.
+// This license does not grant you any patent rights, trademark rights, or any other intellectual property rights. The Software is provided "as is," without any warranty or guarantee, expressed or implied.
+// For more details about the CC BY-NC-SA License, please visit: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// */
+
 #pragma once
 // winutil from unreleased OBS SPA plugin
 #include <iostream>
@@ -12,17 +31,17 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 
-typedef std::wstring WSTRING;
-typedef std::string STRING8; // prevent collision with typedef STRING _STRING
+using WSTRING = std::wstring;
+using STRING8 = std::string; // prevent collision with typedef STRING _STRING
 
-typedef std::wstring_view WSTRINGVIEW;
-typedef std::string_view STRINGVIEW;
+using WSTRINGVIEW = std::wstring_view;
+using STRINGVIEW = std::string_view;
 
-typedef std::wstringstream WSSTREAM;
-typedef std::stringstream SSTREAM;
+using WSSTREAM = std::wstringstream;
+using SSTREAM = std::stringstream;
 
-typedef std::wistringstream WISSTREAM;
-typedef std::istringstream ISSTREAM;
+using WISSTREAM = std::wistringstream;
+using ISSTREAM = std::istringstream;
 
 
 #define WINDOWS_UTIL_UFS(function,suffix) function##suffix
@@ -31,10 +50,10 @@ typedef std::istringstream ISSTREAM;
 #define WINDOWS_UTIL_UFAW_FUNC(tname,aname,wname) static const constexpr auto& tname = wname;
 #define WINDOWS_UTIL_TFUNC(funcname) static const constexpr auto& funcname = WINDOWS_UTIL_UFS(funcname,W);
 
-typedef WSSTREAM TSSTREAM;
-typedef WISSTREAM TISSTREAM;
-typedef WSTRINGVIEW TSTRINGVIEW;
-typedef WSTRING TSTRING;
+using TSSTREAM = WSSTREAM;
+using TISSTREAM = WISSTREAM;
+using TSTRINGVIEW = WSTRINGVIEW;
+using TSTRING = WSTRING;
 
 #define tsplitpath_s _wsplitpath_s // overloaded function :(
 #else
@@ -50,90 +69,126 @@ typedef STRING8 TSTRING;
 #define tsplitpath_s _splitpath_s // overloaded function :(
 #endif
 
-namespace Winutil {
+namespace Winutil
+{
 	WINDOWS_UTIL_UFAW_OBJ(tcout, std::cout, std::wcout)
-		WINDOWS_UTIL_UFAW_OBJ(tcin, std::cin, std::wcin)
-		WINDOWS_UTIL_UFAW_FUNC(tstrcmp, strcmp, wcscmp)
+	WINDOWS_UTIL_UFAW_OBJ(tcin, std::cin, std::wcin)
+	WINDOWS_UTIL_UFAW_FUNC(tstrcmp, strcmp, wcscmp)
 
-		/* Wrapper class for HANDLE with utility functions */
-		class CHandle {
-
+	/* Wrapper class for HANDLE with utility functions */
+	class CHandle
+	{
 		bool m_canbeinherited = false;
 		bool m_protectedfromclose = false;
 
-		void updateFlags() {
+		void updateFlags()
+		{
 			DWORD flags = 0;
 			GetHandleInformation(m_handle, &flags);
 		}
-		protected:
-			HANDLE m_handle = nullptr;
-		public:
-			CHandle() : m_handle(nullptr) {	}
-			CHandle(HANDLE h) : m_handle(h) {
-				updateFlags();
-			}
-			virtual ~CHandle() {}
-			HANDLE* operator&() { return &m_handle; }
 
-			operator HANDLE() const {
-				return m_handle;
-			}
-			CHandle& operator=(HANDLE h) {
-				m_handle = h;
-				updateFlags();
-				return *this;
-			}
+	protected:
+		HANDLE m_handle = nullptr;
 
-			/* Checks if handle is a valid handle */
-			bool isValid() { // 0 or -1(invalid_handle_value) are not valid
-				return (m_handle != nullptr &&  // example: on CreateToolhelp32Snapshot
-					m_handle != INVALID_HANDLE_VALUE); // example: on CreateFile
-			}
+	public:
+		CHandle() : m_handle(nullptr)
+		{
+		}
 
-			/* Closes the Handle */
-			void close() {
-				if (isValid())
-					CloseHandle(m_handle);
-			}
+		CHandle(HANDLE h) : m_handle(h)
+		{
+			updateFlags();
+		}
 
-			bool canBeInherited() {
-				return m_canbeinherited;
-			}
-			bool protectedFromClose() {
-				return m_protectedfromclose;
-			}
-			void canBeInherited(bool b) {
-				if (!isValid())
-					return;
+		virtual ~CHandle()
+		{
+		}
 
-				m_canbeinherited = b;
-				SetHandleInformation(m_handle, (b ? 1 : 0) << (HANDLE_FLAG_INHERIT - 1), (b ? 1 : 0) << (HANDLE_FLAG_INHERIT - 1));
-			}
-			void protectedFromClose(bool b) {
-				if (!isValid())
-					return;
+		HANDLE* operator&() { return &m_handle; }
 
-				m_protectedfromclose = b;
-				SetHandleInformation(m_handle, (b ? 1 : 0) << (HANDLE_FLAG_PROTECT_FROM_CLOSE - 1), (b ? 1 : 0) << (HANDLE_FLAG_PROTECT_FROM_CLOSE - 1));
-			}
+		operator HANDLE() const
+		{
+			return m_handle;
+		}
+
+		CHandle& operator=(HANDLE h)
+		{
+			m_handle = h;
+			updateFlags();
+			return *this;
+		}
+
+		/* Checks if handle is a valid handle */
+		bool isValid()
+		{
+			// 0 or -1(invalid_handle_value) are not valid
+			return (m_handle != nullptr && // example: on CreateToolhelp32Snapshot
+				m_handle != INVALID_HANDLE_VALUE); // example: on CreateFile
+		}
+
+		/* Closes the Handle */
+		void close()
+		{
+			if (isValid())
+				CloseHandle(m_handle);
+		}
+
+		bool canBeInherited()
+		{
+			return m_canbeinherited;
+		}
+
+		bool protectedFromClose()
+		{
+			return m_protectedfromclose;
+		}
+
+		void canBeInherited(bool b)
+		{
+			if (!isValid())
+				return;
+
+			m_canbeinherited = b;
+			SetHandleInformation(m_handle, (b ? 1 : 0) << (HANDLE_FLAG_INHERIT - 1),
+			                     (b ? 1 : 0) << (HANDLE_FLAG_INHERIT - 1));
+		}
+
+		void protectedFromClose(bool b)
+		{
+			if (!isValid())
+				return;
+
+			m_protectedfromclose = b;
+			SetHandleInformation(m_handle, (b ? 1 : 0) << (HANDLE_FLAG_PROTECT_FROM_CLOSE - 1),
+			                     (b ? 1 : 0) << (HANDLE_FLAG_PROTECT_FROM_CLOSE - 1));
+		}
 	};
+
 	/* A HANDLE wrapper to automatically close handle if out of scope if handle is valid handle. similar to std::lock_guard
 
 		NON COPYABLE
 	*/
-	class CHandleGuard : public CHandle {
+	class CHandleGuard : public CHandle
+	{
 		bool m_canClose = false;
+
 	public:
 		// INITIATION CONSTRUCTOR
-		CHandleGuard() : CHandle() {
+		CHandleGuard() : CHandle()
+		{
 			m_canClose = false;
 		}
-		CHandleGuard(HANDLE h) : CHandle(h) {
+
+		CHandleGuard(HANDLE h) : CHandle(h)
+		{
 			m_canClose = isValid();
 		}
+
 		// DELETED COPY CONSTRUCTOR/ASSIGNMENTS
 		CHandleGuard(const CHandleGuard&) = delete;
-		CHandleGuard& operator=(HANDLE h) {
+
+		CHandleGuard& operator=(HANDLE h)
+		{
 			if (m_canClose)
 				CloseHandle(m_handle);
 			m_handle = h;
@@ -144,13 +199,14 @@ namespace Winutil {
 		// MOVE CONSTRUCTOR
 		CHandleGuard(CHandleGuard&& g) = default;
 
-		virtual ~CHandleGuard() {
+		~CHandleGuard() override
+		{
 			if (m_canClose)
 				CloseHandle(m_handle);
 		}
 	};
 
-	static const constexpr DWORD PID_NOT_FOUND = -1;
+	static constexpr DWORD PID_NOT_FOUND = -1;
 
 	STRING8 GetLastErrorAsStringA();
 	WSTRING GetLastErrorAsStringW();
@@ -197,7 +253,8 @@ namespace Winutil {
 	*/
 	BOOL processIs64Bit(DWORD pid);
 
-	enum class MessageBoxTypes : UINT {
+	enum class MessageBoxTypes : UINT
+	{
 		DEFAULT = 0,
 		/* The message box contains one push button: OK. This is the default. */
 		OK = MB_OK,
@@ -221,7 +278,8 @@ namespace Winutil {
 #undef ERROR
 #endif
 	/* *I do not agree to some of these descriptions. see https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox in case of correction */
-	enum class MessageBoxIcons : UINT {
+	enum class MessageBoxIcons : UINT
+	{
 		DEFAULT = 0,
 		/*  An exclamation-point icon appears in the message box. */
 		EXCLAMATION = MB_ICONEXCLAMATION,
@@ -246,7 +304,9 @@ namespace Winutil {
 		/* A stop-sign icon appears in the message box. */
 		HAND = MB_ICONHAND
 	};
-	enum class MessageBoxDefaultButtons : UINT {
+
+	enum class MessageBoxDefaultButtons : UINT
+	{
 		DEFAULT = 0,
 		/*The first button is the default button.
 
@@ -259,7 +319,9 @@ namespace Winutil {
 		/* The fourth  button is the default button. */
 		DEFBUTTON4 = MB_DEFBUTTON4,
 	};
-	enum class MessageBoxModalty : UINT {
+
+	enum class MessageBoxModalty : UINT
+	{
 		DEFAULT = 0,
 		/*The user must respond to the message box before continuing work in the window identified by the hWnd parameter. However, the user can move to the windows of other threads and work in those windows.
 
@@ -282,7 +344,9 @@ namespace Winutil {
 		in the calling thread without suspending other threads. */
 		TASK = MB_TASKMODAL
 	};
-	enum class MessageBoxOther : UINT {
+
+	enum class MessageBoxOther : UINT
+	{
 		DEFAULT = 0,
 		/*Same as desktop of the interactive window station. For more information, see Window Stations.
 
@@ -309,7 +373,8 @@ namespace Winutil {
 #define ERROR TMPVAR_347890nm2fffnda
 #undef TMPVAR_347890nm2fffnda
 #endif
-	typedef std::variant<MessageBoxOther, std::initializer_list<MessageBoxOther>> MessageBoxOtherSingleOrList; // it could have also been done with or'ing all MBOthers but this is as clear as it gets 
+	using MessageBoxOtherSingleOrList = std::variant<MessageBoxOther, std::initializer_list<MessageBoxOther>>;
+	// it could have also been done with or'ing all MBOthers but this is as clear as it gets 
 	/*
 
 		Returns:
@@ -320,12 +385,12 @@ namespace Winutil {
 		If the function succeeds, the return value is one of the following menu-item values.
 	*/
 	int messageBoxA(const STRING8& message, const STRING8& title,
-		HWND window = nullptr,
-		MessageBoxTypes type = MessageBoxTypes::DEFAULT,
-		MessageBoxIcons mbi = MessageBoxIcons::DEFAULT,
-		MessageBoxDefaultButtons defaultbuttons = MessageBoxDefaultButtons::DEFAULT,
-		MessageBoxModalty modalty = MessageBoxModalty::DEFAULT,
-		MessageBoxOtherSingleOrList others = MessageBoxOther::DEFAULT
+	                HWND window = nullptr,
+	                MessageBoxTypes type = MessageBoxTypes::DEFAULT,
+	                MessageBoxIcons mbi = MessageBoxIcons::DEFAULT,
+	                MessageBoxDefaultButtons defaultbuttons = MessageBoxDefaultButtons::DEFAULT,
+	                MessageBoxModalty modalty = MessageBoxModalty::DEFAULT,
+	                MessageBoxOtherSingleOrList others = MessageBoxOther::DEFAULT
 	);
 	/*
 
@@ -337,12 +402,12 @@ namespace Winutil {
 		If the function succeeds, the return value is one of the following menu-item values.
 	*/
 	int messageBoxW(const WSTRING& message, const WSTRING& title,
-		HWND window = nullptr,
-		MessageBoxTypes type = MessageBoxTypes::DEFAULT,
-		MessageBoxIcons mbi = MessageBoxIcons::DEFAULT,
-		MessageBoxDefaultButtons defaultbuttons = MessageBoxDefaultButtons::DEFAULT,
-		MessageBoxModalty modalty = MessageBoxModalty::DEFAULT,
-		MessageBoxOtherSingleOrList others = MessageBoxOther::DEFAULT
+	                HWND window = nullptr,
+	                MessageBoxTypes type = MessageBoxTypes::DEFAULT,
+	                MessageBoxIcons mbi = MessageBoxIcons::DEFAULT,
+	                MessageBoxDefaultButtons defaultbuttons = MessageBoxDefaultButtons::DEFAULT,
+	                MessageBoxModalty modalty = MessageBoxModalty::DEFAULT,
+	                MessageBoxOtherSingleOrList others = MessageBoxOther::DEFAULT
 	);
 	//HANDLE OpenLivingProcess(DWORD desiredAccess, BOOL inheritHandle,DWORD pid) {
 	//	OpenProcess(desiredAccess, inheritHandle, pid);
@@ -374,74 +439,85 @@ namespace Winutil {
 
 	/* Functions with STRING8 or WSTRING suffixes, generalized to current compiler character option */
 	WINDOWS_UTIL_TFUNC(messageBox)
-		WINDOWS_UTIL_TFUNC(GetLastErrorAsString)
-		WINDOWS_UTIL_TFUNC(GetErrorAsString)
-		WINDOWS_UTIL_TFUNC(getExeByProcessID)
-		WINDOWS_UTIL_TFUNC(getFirstProcessIDByExe)
-		WINDOWS_UTIL_TFUNC(processContainsModule)
-		WINDOWS_UTIL_TFUNC(processContainsAnyModules)
+	WINDOWS_UTIL_TFUNC(GetLastErrorAsString)
+	WINDOWS_UTIL_TFUNC(GetErrorAsString)
+	WINDOWS_UTIL_TFUNC(getExeByProcessID)
+	WINDOWS_UTIL_TFUNC(getFirstProcessIDByExe)
+	WINDOWS_UTIL_TFUNC(processContainsModule)
+	WINDOWS_UTIL_TFUNC(processContainsAnyModules)
 
 
-		class CWindowsUtilException : public std::exception {
+	class CWindowsUtilException : public std::exception
+	{
 		DWORD m_errCode = 0;
 		TSTRING m_errStr;
 		TSTRING m_whatErrStr;
-		public:
-			CWindowsUtilException(const char* what) : std::exception(what), m_errCode(GetLastError()), m_errStr(GetLastErrorAsString()) {
-				TSSTREAM ss;
-				ss << std::exception::what() << " " << errorString() << std::endl;
-				m_whatErrStr = ss.str();
-			}
 
-			/*
-				Returns getlasterror code
-			*/
-			DWORD error() const {
-				return m_errCode;
-			}
+	public:
+		CWindowsUtilException(const char* what) : std::exception(what), m_errCode(GetLastError()),
+		                                          m_errStr(GetLastErrorAsString())
+		{
+			TSSTREAM ss;
+			ss << std::exception::what() << " " << errorString() << std::endl;
+			m_whatErrStr = ss.str();
+		}
 
-			/*
-				Returns getlasterror string
-			*/
-			TSTRING errorString() const {
-				return m_errStr;
-			}
+		/*
+			Returns getlasterror code
+		*/
+		DWORD error() const
+		{
+			return m_errCode;
+		}
 
-			/*
-				Returns what() + getlasterror string
-			*/
-			TSTRING whatAndError() const {
-				return m_whatErrStr;
-			}
+		/*
+			Returns getlasterror string
+		*/
+		TSTRING errorString() const
+		{
+			return m_errStr;
+		}
 
-			virtual ~CWindowsUtilException() {
+		/*
+			Returns what() + getlasterror string
+		*/
+		TSTRING whatAndError() const
+		{
+			return m_whatErrStr;
+		}
 
-			}
+		~CWindowsUtilException() override
+		{
+		}
 	};
+
 	/*
 		If a process (e.g. via PID) could not be found, use this exception
 	*/
-	class CProcessNotFoundException : public CWindowsUtilException {
-
+	class CProcessNotFoundException : public CWindowsUtilException
+	{
 	public:
-		CProcessNotFoundException(const char* what) : CWindowsUtilException(what) {
-
+		CProcessNotFoundException(const char* what) : CWindowsUtilException(what)
+		{
 		}
-		virtual ~CProcessNotFoundException() {
 
+		~CProcessNotFoundException() override
+		{
 		}
 	};
+
 	/*
 		If a winapi function that returns a BOOL on if it fails or not returns FALSE, this exception should be thrown
 	*/
-	class CWinapiFunctionFailure : public CWindowsUtilException {
-
+	class CWinapiFunctionFailure : public CWindowsUtilException
+	{
 	public:
-		CWinapiFunctionFailure(const char* what) : CWindowsUtilException(what) {
-
+		CWinapiFunctionFailure(const char* what) : CWindowsUtilException(what)
+		{
 		}
-		virtual ~CWinapiFunctionFailure() {
 
+		~CWinapiFunctionFailure() override
+		{
 		}
 	};
 }
